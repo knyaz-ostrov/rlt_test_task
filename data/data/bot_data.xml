@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bot_data>
+
+    <BotMessageText></BotMessageText>
+        <text id="start">Hi, @{}!</text>
+        <text id="incorrect_request">Некорректный запрос.</text>
+
+</bot_data>
