@@ -43,7 +43,7 @@ ___
 
     `git clone https://github.com/knyaz-ostrov/rlt_test_task.git`
 
-2. Переход в директорию проекта rlt_test_task
+2. Переход в директорию проекта RLT Test Task
 
     `cd rlt_test_task`
 
