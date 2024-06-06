@@ -43,7 +43,7 @@ ___
 
     `git clone https://github.com/knyaz-ostrov/rlt_test_task.git`
 
-2. Переход в директорию проекта TaskManager_tgbot
+2. Переход в директорию проекта rlt_test_task
 
     `cd rlt_test_task`
 
