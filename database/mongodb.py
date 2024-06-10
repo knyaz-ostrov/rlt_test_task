@@ -10,7 +10,9 @@ class GetData:
     def __init__(self, dt_from: datetime, dt_upto: datetime) -> None:
         self.__database_name = MongoConfig.database
         self.__collection_name = MongoConfig.collection
+
         self.__dt_from, self.__dt_upto = dt_from, dt_upto
+
         self.__connect()
         self.__parse()
 
