@@ -11,7 +11,7 @@ FILE_PATH = 'data/data/config.json'
 class BotConfig:
     """
     Класс для хранения конфигурационных
-    данных бота
+    данных бота.
     """
     with open(FILE_PATH) as file:
         __bot_config = json.load(file)['bot']
@@ -22,7 +22,7 @@ class BotConfig:
 class MongoConfig:
     """
     Класс для хранения конфигурационных данных
-    MongoDB
+    MongoDB.
     """
     with open(FILE_PATH) as file:
         __mongo_config = json.load(file)['mongodb']
