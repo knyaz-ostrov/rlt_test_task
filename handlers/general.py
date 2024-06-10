@@ -30,7 +30,7 @@ async def start_cmd(message: Message) -> None:
 async def text_message(message: Message) -> None:
     """
     Хандлер, реагируюет на любые текстовые сообщения
-    и проверяет содержание в них JSON-данных. Если в
+    и пытается перевести их JSON-объект. Если в
     сообщении от пользователя содержится JSON,
     передает его в объект Agregation для получения
     агрегированных данных и отправки их пользователю
@@ -39,8 +39,9 @@ async def text_message(message: Message) -> None:
     :param message: Объект Message c данными о событии.
     :return:
     """
-    input_data = eval(message.text)
-    if type(input_data) != dict:
+    try:
+        input_data = json.loads(message.text)
+    except json.JSONDecodeError:
         await message.answer(BotMessageText.incorrect_request)
         return
 
