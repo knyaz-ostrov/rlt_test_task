@@ -1,25 +1,44 @@
+"""
+Модуль для работы с MongoDB.
+"""
 from datetime import datetime
 
 import pymongo
+from pymongo.cursor import Cursor
+from pymongo.collection import Collection
 
 from data.scripts.config import MongoConfig
 
 
-
-class GetData:
+class MongoDB:
+    """
+    Класс для извлечения данных из MongoDB в соответствии с
+    переданным запросом.
+    """
     def __init__(self, dt_from: datetime, dt_upto: datetime) -> None:
-        self.__database_name = MongoConfig.database
-        self.__collection_name = MongoConfig.collection
+        collection = self.__get_collection(MongoConfig.database, MongoConfig.collection)
 
-        self.__dt_from, self.__dt_upto = dt_from, dt_upto
+        self.result = self.__get_data(dt_from, dt_upto, collection)
 
-        self.__connect()
-        self.__parse()
+    def __get_collection(self, database_name: str, collection_name: str) -> Collection:
+        """
+        Метод подключается к MongoDB и возвращает коллекцию.
 
-    def __connect(self) -> None:
-        self.__client = pymongo.MongoClient()
-        self.__collection = self.__client[f'{self.__database_name}'].get_collection(self.__collection_name)
+        :param database_name: Название базы данных MongoDB.
+        :param collection_name: Название коллекции MongoDB.
+        :return: Объект Collection.
+        """
+        client = pymongo.MongoClient()
+        return client[f'{database_name}'].get_collection(collection_name)
 
-    def __parse(self) -> None:
-        query = {"dt": {'$gte': self.__dt_from, '$lte': self.__dt_upto}}
-        self.result = self.__collection.find(query)
+    def __get_data(self, dt_from: datetime, dt_upto: datetime, collection: Collection) -> Cursor:
+        """
+        Метод ищет в коллекции все объекты, в которых параметр dt соответствует переданному
+        диапазону дат.
+
+        :param dt_from: Начальная дата поиска.
+        :param dt_upto: Конечная дата поиска.
+        :param collection: Коллекция, в которой будет осуществляться поиск.
+        :return: Объект Cursor, хранящий в себе подходящие объекты.
+        """
+        return collection.find({"dt": {'$gte': dt_from, '$lte': dt_upto}})
