@@ -1,25 +1,40 @@
+"""
+Модуль для непосредственного запуска бота.
+"""
 import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
 
-
-from data.scripts.config import BotConfig
 from handlers import general
-
+from data.scripts.config import BotConfig
 
 
 async def main() -> None:
-    bot = Bot(BotConfig.token)
-    dp = Dispatcher()
+    """
+    Устанавливает токен для бота,
+    добавляет роутеры из каталога
+    handlers, удаляет все входящие
+    события, поступившие в момент
+    неактивности бота. Запускает бота.
 
+    :return:
+    """
+    bot = Bot(BotConfig.token)
+
+    dp = Dispatcher()
     dp.include_router(general.router)
+
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 
+def logger() -> None:
+    """
+    Настройка логгирования.
 
-if __name__ == '__main__':
+    :return:
+    """
     logging.basicConfig(
         level=logging.INFO,
         filename="log.log",
@@ -28,4 +43,7 @@ if __name__ == '__main__':
         encoding='UTF-8'
     )
 
-    asyncio.run(main())
+
+if __name__ == '__main__':
+    logger()            # Запуск и настройка логгирования.
+    asyncio.run(main()) # Запуск бота.
