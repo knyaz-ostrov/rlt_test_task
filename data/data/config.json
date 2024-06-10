@@ -1,0 +1,10 @@
+{
+    "bot": {
+        "token": ""
+    },
+
+    "mongodb": {
+        "database": "sampleDB",
+        "collection": "sample_collection"
+    }
+}
